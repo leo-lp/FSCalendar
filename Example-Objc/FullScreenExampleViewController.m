@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray<EKEvent *> *events;
 
 - (void)loadCalendarEvents;
-- (NSArray<EKEvent *> *)eventsForDate:(NSDate *)date;
+- (nullable NSArray<EKEvent *> *)eventsForDate:(NSDate *)date;
 
 @end
 
@@ -258,11 +258,9 @@ NS_ASSUME_NONNULL_END
         } else {
             
             // Alert
-            UIAlertController *alertController = [[UIAlertController alloc] init];
-            alertController.title = @"Error";
-            alertController.message = @"Permission of calendar is required for fetching events.";
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Permission Error" message:@"Permission of calendar is required for fetching events." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
     
